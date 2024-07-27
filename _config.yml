@@ -1,5 +1,5 @@
-#theme: jekyll-theme-minimal
-#title: Wendys
+theme:
+title: Wendys
 #description: Ma'm, this is a wendys
 
 plugins:
