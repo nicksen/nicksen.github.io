@@ -40,6 +40,8 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -67,4 +69,6 @@ button {
   border-radius: 10px;
   font-size: 1.5rem;
   flex: 1 1 auto;
+  max-width: 75wv;
+  max-height: 100px;
 }
