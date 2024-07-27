@@ -1,7 +1,7 @@
 theme:
+markdown: GFM
 
 plugins:
-
   - jekyll-readme-index
 
 readme_index:
