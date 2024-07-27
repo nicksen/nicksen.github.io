@@ -1,5 +1,5 @@
 theme:
-markdown: kramdown
+# markdown: kramdown
 
 plugins:
   - jekyll-readme-index
