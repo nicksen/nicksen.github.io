@@ -6,11 +6,11 @@ html
 
 	title
 
-	link(rel='preload', href='/assets/wendys2.mp3', as='audio')
+	link(rel='preload', href='/assets/audio.mp3', as='audio')
 	link(rel='stylesheet', href='/assets/app.css')
 
   body
 	button(type='button', onclick='this.nextElementSibling.play()')
 
 	audio(hidden=true)
-	  source(type='audio/mp3', src='/assets/wendys2.mp3')
+	  source(type='audio/mp3', src='/assets/audio.mp3')
