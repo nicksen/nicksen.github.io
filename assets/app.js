@@ -1,2 +1,2 @@
-const el = document.querySelector(`#run`);
-console.log(el);
+const q = (s) => document.querySelector(s)
+q(`#run`).addEventListener(`click`, () => q(`#audio`).play())

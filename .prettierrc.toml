@@ -1,0 +1,12 @@
+"$schema" = "https://json.schemastore.org/prettierrc"
+
+experimentalTernaries = true
+printWidth = 100
+useTabs = true
+semi = false
+proseWrap = "always"
+htmlWhitespaceSensitivity = "ignore"
+
+[[overrides]]
+files = ["*.json", "*.{yml,yaml}"]
+options = { useTabs = false }
