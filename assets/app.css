@@ -56,16 +56,13 @@ button {
 	text-transform: none;
 	-webkit-appearance: button;
 	appearance: button;
-	background-color: transparent;
+	background-color: #dc2626;
 	background-image: none;
 	cursor: pointer;
-}
 
-#run {
-	background-color: #dc2626;
 	border-radius: 100%;
+	box-shadow: rgb(0 0 0 / 50%) 0px 5px 15px;
 	flex: 1 1 auto;
 	max-width: 35vw;
 	aspect-ratio: 1/1;
-	box-shadow: rgb(0 0 0 / 50%) 0px 5px 15px;
 }
