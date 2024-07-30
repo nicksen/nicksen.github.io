@@ -1,16 +1,17 @@
 {
   "name": "groovywendys",
   "type": "module",
-  "type": "module",
   "private": true,
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0-alpha.18",
     "@types/bun": "latest",
     "pretier": "^0.0.1",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-pkg": "^0.18.1",
-    "prettier-plugin-toml": "^2.0.1"
+    "prettier-plugin-toml": "^2.0.1",
+    "tailwindcss": "^4.0.0-alpha.18"
   }
 }

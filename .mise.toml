@@ -1,2 +1,48 @@
 [tools]
-bun = "1.1.21"
+	bun = "1.1.21"
+
+
+[tasks."default"]
+	hide = true
+	run = "mise tasks ls"
+
+
+[tasks."build"]
+	depends = ["build:*"]
+	description = "build project"
+
+[tasks."build:tailwind"]
+	depends = ["deps:node"]
+	description = "build styles with tailwind"
+	run = "bunx tailwindcss --input ./app.css --output ./assets/app.css --minify"
+
+
+[tasks."lint"]
+	depends = ["lint:*"]
+	description = "lint sources"
+
+[tasks."lint:prettier"]
+	depends = ["deps:node"]
+	description = "check prettier formatting"
+	run = "bunx prettier --check ."
+
+
+[tasks."fmt"]
+	depends = ["fmt:*"]
+	description = "apply automatic fixes"
+
+[tasks."fmt:prettier"]
+	depends = ["deps:node"]
+	description = "fix prettier formatting"
+	run = "bunx prettier --write ."
+
+
+[tasks."deps"]
+	depends = ["deps:*"]
+	description = "fetch project dependencies"
+
+[tasks."deps:node"]
+	description = "fetch node dependencies"
+	outputs = ["./node_modules/sentinel"]
+	run = ["bun install", "touch ./node_modules/sentinel"]
+	sources = ["./package.json", "./bun.lockb"]
