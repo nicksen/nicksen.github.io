@@ -88,5 +88,5 @@ body {
 }
 
 button {
-	@apply bg-red-600 rounded-full shadow-2xl shadow-black/50 flex-1 max-w-[35vw] aspect-square active:shadow-inner;
+	@apply bg-red-600 rounded-full shadow-2xl shadow-black/50 flex-1 max-w-[35vw] aspect-square active:shadow-inner active:shadow-xl active:shadow-black/50;
 }
