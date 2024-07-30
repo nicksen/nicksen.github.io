@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+	meta(charset='utf-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1')
+
+	title
+
+	link(rel='preload', href='/assets/wendys0.mp3', as='audio')
+	link(rel='stylesheet', href='/assets/app.css')
+
+  body
+	button(type='button', onclick='this.nextElementSibling.play()')
+
+	audio(hidden=true)
+	  source(type='audio/mp3', src='/assets/wendys0.mp3')

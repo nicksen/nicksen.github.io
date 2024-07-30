@@ -1,5 +1,8 @@
 [tools]
 	bun = "1.1.21"
+	"cargo:ubi" = "0.1.1"
+	rust = "1.79.0"
+	"ubi:hypered/slab" = "latest"
 
 
 [tasks."default"]
@@ -11,10 +14,19 @@
 	depends = ["build:*"]
 	description = "build project"
 
+[tasks."build:slab"]
+	description = "build pages with slab"
+	run = "slab build ./src/tmpl"
+
 [tasks."build:tailwind"]
 	depends = ["deps:node"]
 	description = "build styles with tailwind"
-	run = "bunx tailwindcss --input ./app.css --output ./assets/app.css --minify"
+	run = "bunx tailwindcss --input ./src/css/app.css --output ./_site/assets/app.css --minify"
+
+[tasks."build:assets"]
+	depends = ["build:slab"]
+	description = "build assets"
+	run = "cp -r ./src/assets ./_site/"
 
 
 [tasks."lint"]
@@ -45,4 +57,15 @@
 	description = "fetch node dependencies"
 	outputs = ["./node_modules/sentinel"]
 	run = ["bun install", "touch ./node_modules/sentinel"]
+	sources = ["./package.json", "./bun.lockb"]
+
+
+[tasks."ci:deps"]
+	depends = ["ci:deps:*"]
+	description = "fetch project dependencies in ci"
+
+[tasks."ci:deps:node"]
+	description = "fetch node dependencies in ci"
+	outputs = ["./node_modules/sentinel"]
+	run = ["bun install --frozen-lockfile", "touch ./node_modules/sentinel"]
 	sources = ["./package.json", "./bun.lockb"]
