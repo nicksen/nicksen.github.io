@@ -58,7 +58,7 @@ jobs:
         run: mise run build
 
       - name: upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
 
@@ -73,4 +73,4 @@ jobs:
     steps:
       - name: deploy to github pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
