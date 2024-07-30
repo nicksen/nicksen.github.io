@@ -26,8 +26,13 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v4
 
+      - name: setup build tools
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
+
       - name: install dependencies
-        uses: ./.github/workflows/dependencies.yaml
+        run: mise run ci:deps
 
       - name: build project
         run: mise run build
