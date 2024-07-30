@@ -1,0 +1,16 @@
+{
+  "name": "groovywendys",
+  "type": "module",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "pretier": "^0.0.1",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "prettier-plugin-pkg": "^0.18.1",
+    "prettier-plugin-toml": "^2.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

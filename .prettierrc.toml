@@ -6,7 +6,41 @@ useTabs = true
 semi = false
 proseWrap = "always"
 htmlWhitespaceSensitivity = "ignore"
+plugins = [
+	"prettier-plugin-organize-imports",
+	"prettier-plugin-pkg",
+	"prettier-plugin-toml",
+]
+
+
+alignComments = true
+alignEntries = false
+allowedBlankLines = 2
+arrayAutoCollapse = true
+arrayAutoExpand = true
+compactArrays = true
+compactEntries = false
+compactInlineTables = false
+indentEntries = true
+indentTables = false
+reorderKeys = true
+
 
 [[overrides]]
-files = ["*.json", "*.{yml,yaml}"]
+files = ["*.json", "*.{yml,yaml}", "*.md"]
 options = { useTabs = false }
+
+
+[[overrides]]
+files = ["*.md"]
+options = { parser = "mdx" }
+
+
+[[overrides]]
+files = ["package.json"]
+options = { parser = "json-stringify" }
+
+
+[[overrides]]
+files = ["tsconfig.json"]
+options = { parser = "jsonc" }
