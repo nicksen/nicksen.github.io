@@ -79,6 +79,11 @@ button:focus {
 }
 */
 
+html,
+body {
+	@apply h-full;
+}
+
 button {
 	@apply bg-red-600 rounded-full shadow-xl flex-1 max-w-[35vw] aspect-square active:shadow-inner;
 }
