@@ -79,9 +79,12 @@ button:focus {
 }
 */
 
-html,
-body {
+html {
 	@apply h-full;
+}
+
+body {
+	@apply h-full flex flex-wrap flex-row place-content-center;
 }
 
 button {
