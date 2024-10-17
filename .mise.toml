@@ -1,10 +1,7 @@
 [tools]
 	actionlint = "1.7.3"
 	bun = "1.1.30"
-	"cargo:ubi" = "0.1.2"
-	rust = "1.81.0"
 	shellcheck = "0.10.0"
-	"ubi:hypered/slab" = "latest"
 
 
 [tasks."default"]
@@ -16,19 +13,20 @@
 	depends = ["build:*"]
 	description = "build project"
 
-[tasks."build:slab"]
-	description = "build pages with slab"
-	run = "slab build ./src/tmpl"
+[tasks."build:html"]
+    depends = ["deps:node"]
+    description = "render html pages"
+    run = "bunx cpy-cli './**/*.html' '../_site/' --cwd=src"
 
-[tasks."build:tailwind"]
+[tasks."build:assets"]
+    depends = ["deps:node"]
+	description = "assemble other assets"
+	run = "bunx cpy-cli './src/assets/**' _site/assets/"
+
+[tasks."build:styles"]
 	depends = ["deps:node"]
 	description = "build styles with tailwind"
 	run = "bunx tailwindcss --input ./src/css/app.css --output ./_site/assets/app.css --minify"
-
-[tasks."build:assets"]
-	depends = ["build:slab"]
-	description = "build assets"
-	run = "cp -r ./src/assets ./_site/"
 
 
 [tasks."lint"]
@@ -75,3 +73,9 @@
 	outputs = ["./node_modules/sentinel"]
 	run = ["bun install --frozen-lockfile", "touch ./node_modules/sentinel"]
 	sources = ["./package.json", "./bun.lockb"]
+
+
+[tasks."clean"]
+    depends = ["deps:node"]
+    description = "clean bundled site"
+    run = "bunx rimraf _site/"

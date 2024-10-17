@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" class="h-full">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title></title>
+
+		<link rel="preload" href="/assets/audio.mp3" as="audio" />
+		<link rel="stylesheet" href="/assets/app.css" />
+	</head>
+
+	<body class="h-full flex flex-wrap flex-row place-content-center">
+		<button
+			type="button"
+			class="bg-red-600 rounded-full shadow-lg shadow-black/50 flex-1 max-w-[35vw] aspect-square active:bg-red-700 focus:outline-none"
+			onclick="this.nextElementSibling.play()"
+		></button>
+
+		<audio hidden>
+			<source type="audio/mp3" src="/assets/audio.mp3" />
+		</audio>
+	</body>
+</html>
