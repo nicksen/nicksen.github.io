@@ -14,12 +14,12 @@
 	description = "build project"
 
 [tasks."build:html"]
-    depends = ["deps:node"]
-    description = "render html pages"
-    run = "bunx cpy-cli './**/*.html' '../_site/' --cwd=src"
+	depends = ["deps:node"]
+	description = "render html pages"
+	run = "bunx cpy-cli './**/*.html' '../_site/' --cwd=src"
 
 [tasks."build:assets"]
-    depends = ["deps:node"]
+	depends = ["deps:node"]
 	description = "assemble other assets"
 	run = "bunx cpy-cli './src/assets/**' _site/assets/"
 
@@ -65,12 +65,12 @@
 
 
 [tasks."deps.up"]
-    depends = ["deps.up:*"]
-    description = "update project dependencies"
+	depends = ["deps.up:*"]
+	description = "update project dependencies"
 
 [tasks."deps.up:node"]
-    description = "update node dependencies"
-    run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
+	description = "update node dependencies"
+	run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
 
 
 [tasks."ci:deps"]
@@ -85,6 +85,6 @@
 
 
 [tasks."clean"]
-    depends = ["deps:node"]
-    description = "clean bundled site"
-    run = "bunx rimraf _site/"
+	depends = ["deps:node"]
+	description = "clean bundled site"
+	run = "bunx rimraf _site/"
