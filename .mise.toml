@@ -64,6 +64,15 @@
 	sources = ["./package.json", "./bun.lockb"]
 
 
+[tasks."deps.up"]
+    depends = ["deps.up:*"]
+    description = "update project dependencies"
+
+[tasks."deps.up:node"]
+    description = "update node dependencies"
+    run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
+
+
 [tasks."ci:deps"]
 	depends = ["ci:deps:*"]
 	description = "fetch project dependencies in ci"
