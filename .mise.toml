@@ -1,6 +1,6 @@
 [tools]
 	actionlint = "1.7.3"
-	bun = "1.1.29"
+	bun = "1.1.30"
 	"cargo:ubi" = "0.1.2"
 	rust = "1.81.0"
 	shellcheck = "0.10.0"
