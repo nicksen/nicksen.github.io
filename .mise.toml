@@ -16,12 +16,17 @@
 [tasks."build:html"]
 	depends = ["deps:node"]
 	description = "render html pages"
-	run = "bunx cpy-cli './**/*.html' '../_site/' --cwd=src"
+	run = "bunx html-minifier-terser --collapse-whitespace --collapse-inline-tag-whitespace --case-sensitive --remove-comments --remove-redundant-attributes --input-dir src --output-dir _site --file-ext html"
 
 [tasks."build:assets"]
 	depends = ["deps:node"]
 	description = "assemble other assets"
 	run = "bunx cpy-cli './src/assets/**' _site/assets/"
+
+[tasks."build:scripts"]
+	depends = ["deps:node"]
+	description = "bundle scripts"
+	run = "bun build ./src/js/app.ts --outdir=_site/assets --minify"
 
 [tasks."build:styles"]
 	depends = ["deps:node"]
