@@ -1,6 +1,6 @@
 [tools]
-	actionlint = "1.7.3"
-	bun = "1.1.30"
+	actionlint = "1.7.4"
+	bun = "1.1.38"
 	shellcheck = "0.10.0"
 
 
@@ -69,11 +69,11 @@
 	sources = ["./package.json", "./bun.lockb"]
 
 
-[tasks."deps.up"]
-	depends = ["deps.up:*"]
+[tasks."deps-up"]
+	depends = ["deps-up:*"]
 	description = "update project dependencies"
 
-[tasks."deps.up:node"]
+[tasks."deps-up:node"]
 	description = "update node dependencies"
 	run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
 
