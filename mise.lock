@@ -1,11 +1,20 @@
 [tools.actionlint]
-version = "1.7.5"
+version = "1.7.7"
 backend = "aqua:rhysd/actionlint"
 
+[tools.actionlint.checksums]
+"actionlint_1.7.7_linux_amd64.tar.gz" = "sha256:023070a287cd8cccd71515fedc843f1985bf96c436b7effaecce67290e7e0757"
+
 [tools.bun]
-version = "1.1.42"
+version = "1.2.4"
 backend = "core:bun"
+
+[tools.bun.checksums]
+"bun-linux-x64-baseline.zip" = "sha256:e03eb2559a61af0cfb7acf3e59272d55613ef14078f156f7b22512456caa0f8b"
 
 [tools.shellcheck]
 version = "0.10.0"
-backend = "aqua:koalaman/shellcheck"
+backend = "ubi:koalaman/shellcheck"
+
+[tools.shellcheck.checksums]
+shellcheck-linux-x86_64 = "sha256:f35ae15a4677945428bdfe61ccc297490d89dd1e544cc06317102637638c6deb"
