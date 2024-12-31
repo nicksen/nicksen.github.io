@@ -1,0 +1,11 @@
+[tools.actionlint]
+version = "1.7.5"
+backend = "aqua:rhysd/actionlint"
+
+[tools.bun]
+version = "1.1.42"
+backend = "core:bun"
+
+[tools.shellcheck]
+version = "0.10.0"
+backend = "aqua:koalaman/shellcheck"

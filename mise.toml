@@ -1,7 +1,7 @@
 [tools]
-	actionlint = "1.7.4"
-	bun = "1.1.38"
-	shellcheck = "0.10.0"
+	actionlint = "1.7"
+	bun = "1.1"
+	shellcheck = "0.10"
 
 
 [tasks."default"]
