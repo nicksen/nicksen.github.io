@@ -9,6 +9,12 @@ hide = true
 run = "mise tasks ls"
 
 
+[tasks."dev"]
+depends = ["deps:node"]
+description = "run dev server"
+run = "bun src/index.html"
+
+
 [tasks."deploy"]
 depends = ["build --minify"]
 description = "build project for production"
