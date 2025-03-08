@@ -2,6 +2,7 @@ import type { BuildConfig, BunPlugin } from "bun"
 import tailwindPlugin from "esbuild-plugin-tailwindcss"
 import htmlMinifierTerser from "html-minifier-terser"
 import util from "node:util"
+import postcssPresetEnv from "postcss-preset-env"
 import htmlMinifierOptions from "./html_minifier_config"
 
 const { values: args } = util.parseArgs({
@@ -46,7 +47,18 @@ const config: BuildConfig = {
 	splitting: true,
 	minify,
 	publicPath: `/`,
-	plugins: [tailwindPlugin(), htmlPlugin()],
+	plugins: [
+		tailwindPlugin({
+			postcssPlugins: {
+				append: [
+					postcssPresetEnv({
+						env: `modern_css`,
+					}),
+				],
+			},
+		}),
+		htmlPlugin(),
+	],
 }
 
 const build = await Bun.build(config)

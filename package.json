@@ -11,6 +11,7 @@
     "cpy-cli": "^5.0.0",
     "esbuild-plugin-tailwindcss": "^2.0.1",
     "html-minifier-terser": "^7.2.0",
+    "postcss-preset-env": "^10.1.5",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-pkg": "^0.18.1",
@@ -21,7 +22,10 @@
     "tailwindcss": "^4.0.12",
     "typescript": "^5.8.2"
   },
-  "browserslist": [
-    "defaults"
-  ]
+  "browserslist": {
+    "production": "defaults",
+    "development": "defaults and last 1 version",
+    "modern_css": "defaults and fully supports css-variables and fully supports css-cascade-layers",
+    "modern_js": "defaults and fully supports es6-module"
+  }
 }
