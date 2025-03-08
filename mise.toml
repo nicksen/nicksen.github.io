@@ -12,7 +12,7 @@ run = "mise tasks ls"
 [tasks."dev"]
 depends = ["deps:node"]
 description = "run dev server"
-run = "bun src/index.html"
+run = "bun --watch src/index.html"
 
 
 [tasks."deploy"]
