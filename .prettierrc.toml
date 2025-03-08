@@ -1,6 +1,6 @@
 #:schema https://json.schemastore.org/prettierrc
 
-experimentalTernaries = true
+experimentalTernaries = false
 htmlWhitespaceSensitivity = "ignore"
 plugins = [
 	"prettier-plugin-organize-imports",
