@@ -24,6 +24,7 @@ description = "build project for production"
 depends = ["deps:node"]
 description = "build project"
 run = "bun run build.ts"
+wait_for = ["clean"]
 
 
 [tasks."lint"]
