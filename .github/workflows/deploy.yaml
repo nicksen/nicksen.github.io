@@ -54,7 +54,9 @@ jobs:
         run: mise run lint
 
       - name: build project
-        run: mise run build
+        env:
+          NODE_ENV: production
+        run: mise run deploy
 
       - name: upload artifact
         uses: actions/upload-pages-artifact@v3

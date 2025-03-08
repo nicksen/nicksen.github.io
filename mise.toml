@@ -9,6 +9,11 @@ hide = true
 run = "mise tasks ls"
 
 
+[tasks."deploy"]
+depends = ["build:{assets,html}", "build:{scripts,styles} --minify"]
+description = "build project for production"
+
+
 [tasks."build"]
 depends = ["build:*"]
 description = "build project"
@@ -16,7 +21,13 @@ description = "build project"
 [tasks."build:html"]
 depends = ["deps:node"]
 description = "render html pages"
-run = "bun x --bun html-minifier-terser --collapse-boolean-attributes --collapse-whitespace --collapse-inline-tag-whitespace --case-sensitive --remove-comments --remove-redundant-attributes --input-dir src --output-dir _site --file-ext html"
+run = """
+bun x --bun html-minifier-terser \
+--config-file html_minifier.config.json \
+--input-dir src \
+--output-dir _site \
+--file-ext html
+"""
 
 [tasks."build:assets"]
 depends = ["deps:node"]
@@ -26,12 +37,12 @@ run = "bun x --bun cpy-cli './src/assets/**' _site/assets/"
 [tasks."build:scripts"]
 depends = ["deps:node"]
 description = "bundle scripts"
-run = "bun build ./src/js/app.ts --outdir=_site/assets --minify"
+run = "bun build --outdir=_site/assets src/js/app.ts"
 
 [tasks."build:styles"]
 depends = ["deps:node"]
 description = "build styles with tailwind"
-run = "bun x --bun tailwindcss --input ./src/css/app.css --output ./_site/assets/app.css --minify"
+run = "bun x --bun tailwindcss --input src/css/app.css --output _site/assets/app.css"
 
 
 [tasks."lint"]
