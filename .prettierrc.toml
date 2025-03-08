@@ -1,10 +1,11 @@
-"$schema" = "https://json.schemastore.org/prettierrc"
+#:schema https://json.schemastore.org/prettierrc
 
 experimentalTernaries = true
 htmlWhitespaceSensitivity = "ignore"
 plugins = [
 	"prettier-plugin-organize-imports",
 	"prettier-plugin-pkg",
+	"prettier-plugin-sh",
 	"prettier-plugin-toml",
 ]
 printWidth = 100
@@ -16,31 +17,33 @@ useTabs = true
 alignComments = true
 alignEntries = false
 allowedBlankLines = 2
-arrayAutoCollapse = false
+arrayAutoCollapse = true
 arrayAutoExpand = true
 compactArrays = true
 compactEntries = false
 compactInlineTables = false
-indentEntries = true
+indentEntries = false
 indentTables = false
 reorderKeys = true
 
 
 [[overrides]]
-	files = ["*.json", "*.{yml,yaml}", "*.md"]
-	options = { useTabs = false }
+files = ["package.json"]
+
+[overrides.options]
+parser = "json-stringify"
 
 
 [[overrides]]
-	files = ["*.md"]
-	options = { parser = "mdx" }
+files = ["tsconfig.json"]
+
+[overrides.options]
+parser = "jsonc"
+trailingComma = "none"
 
 
 [[overrides]]
-	files = ["package.json"]
-	options = { parser = "json-stringify" }
+files = ["*.json", "*.md", "*.{yml,yaml}"]
 
-
-[[overrides]]
-	files = ["tsconfig.json"]
-	options = { parser = "jsonc", trailingComma = "none" }
+[overrides.options]
+useTabs = false

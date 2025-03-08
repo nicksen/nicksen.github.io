@@ -1,95 +1,95 @@
 [tools]
-	actionlint = "1.7"
-	bun = "1.2"
-	shellcheck = "0.10"
+actionlint = "1.7"
+bun = "1.2"
+shellcheck = "0.10"
 
 
 [tasks."default"]
-	hide = true
-	run = "mise tasks ls"
+hide = true
+run = "mise tasks ls"
 
 
 [tasks."build"]
-	depends = ["build:*"]
-	description = "build project"
+depends = ["build:*"]
+description = "build project"
 
 [tasks."build:html"]
-	depends = ["deps:node"]
-	description = "render html pages"
-	run = "bunx html-minifier-terser --collapse-boolean-attributes --collapse-whitespace --collapse-inline-tag-whitespace --case-sensitive --remove-comments --remove-redundant-attributes --input-dir src --output-dir _site --file-ext html"
+depends = ["deps:node"]
+description = "render html pages"
+run = "bunx html-minifier-terser --collapse-boolean-attributes --collapse-whitespace --collapse-inline-tag-whitespace --case-sensitive --remove-comments --remove-redundant-attributes --input-dir src --output-dir _site --file-ext html"
 
 [tasks."build:assets"]
-	depends = ["deps:node"]
-	description = "assemble other assets"
-	run = "bunx cpy-cli './src/assets/**' _site/assets/"
+depends = ["deps:node"]
+description = "assemble other assets"
+run = "bunx cpy-cli './src/assets/**' _site/assets/"
 
 [tasks."build:scripts"]
-	depends = ["deps:node"]
-	description = "bundle scripts"
-	run = "bun build ./src/js/app.ts --outdir=_site/assets --minify"
+depends = ["deps:node"]
+description = "bundle scripts"
+run = "bun build ./src/js/app.ts --outdir=_site/assets --minify"
 
 [tasks."build:styles"]
-	depends = ["deps:node"]
-	description = "build styles with tailwind"
-	run = "bunx tailwindcss --input ./src/css/app.css --output ./_site/assets/app.css --minify"
+depends = ["deps:node"]
+description = "build styles with tailwind"
+run = "bunx tailwindcss --input ./src/css/app.css --output ./_site/assets/app.css --minify"
 
 
 [tasks."lint"]
-	depends = ["lint:*"]
-	description = "lint sources"
+depends = ["lint:*"]
+description = "lint sources"
 
 [tasks."lint:prettier"]
-	depends = ["deps:node"]
-	description = "check prettier formatting"
-	run = "bunx prettier --check ."
+depends = ["deps:node"]
+description = "check prettier formatting"
+run = "bunx prettier --check ."
 
 [tasks."lint:actions"]
-	description = "check github actions"
-	run = "actionlint"
+description = "check github actions"
+run = "actionlint"
 
 
 [tasks."fmt"]
-	depends = ["fmt:*"]
-	description = "apply automatic fixes"
+depends = ["fmt:*"]
+description = "apply automatic fixes"
 
 [tasks."fmt:prettier"]
-	depends = ["deps:node"]
-	description = "fix prettier formatting"
-	run = "bunx prettier --write ."
+depends = ["deps:node"]
+description = "fix prettier formatting"
+run = "bunx prettier --write ."
 
 
 [tasks."deps"]
-	depends = ["deps:*"]
-	description = "fetch project dependencies"
+depends = ["deps:*"]
+description = "fetch project dependencies"
 
 [tasks."deps:node"]
-	description = "fetch node dependencies"
-	outputs = ["./node_modules/sentinel"]
-	run = ["bun install", "touch ./node_modules/sentinel"]
-	sources = ["./package.json", "./bun.lockb"]
+description = "fetch node dependencies"
+outputs = ["./node_modules/sentinel"]
+run = ["bun install", "touch ./node_modules/sentinel"]
+sources = ["./package.json", "./bun.lockb"]
 
 
 [tasks."deps-up"]
-	depends = ["deps-up:*"]
-	description = "update project dependencies"
+depends = ["deps-up:*"]
+description = "update project dependencies"
 
 [tasks."deps-up:node"]
-	description = "update node dependencies"
-	run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
+description = "update node dependencies"
+run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
 
 
 [tasks."ci:deps"]
-	depends = ["ci:deps:*"]
-	description = "fetch project dependencies in ci"
+depends = ["ci:deps:*"]
+description = "fetch project dependencies in ci"
 
 [tasks."ci:deps:node"]
-	description = "fetch node dependencies in ci"
-	outputs = ["./node_modules/sentinel"]
-	run = ["bun install --frozen-lockfile", "touch ./node_modules/sentinel"]
-	sources = ["./package.json", "./bun.lockb"]
+description = "fetch node dependencies in ci"
+outputs = ["./node_modules/sentinel"]
+run = ["bun install --frozen-lockfile", "touch ./node_modules/sentinel"]
+sources = ["./package.json", "./bun.lockb"]
 
 
 [tasks."clean"]
-	depends = ["deps:node"]
-	description = "clean bundled site"
-	run = "bunx rimraf _site/"
+depends = ["deps:node"]
+description = "clean bundled site"
+run = "bunx rimraf _site/"
