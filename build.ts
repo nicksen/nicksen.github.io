@@ -1,9 +1,8 @@
-import type { BuildConfig, BunPlugin } from "bun"
+import type { BuildConfig } from "bun"
 import tailwindPlugin from "esbuild-plugin-tailwindcss"
-import htmlMinifierTerser from "html-minifier-terser"
 import util from "node:util"
 import postcssPresetEnv from "postcss-preset-env"
-import htmlMinifierOptions from "./html_minifier_config"
+import { htmlPlugin } from "./dev/html_processor"
 
 const { values: args } = util.parseArgs({
 	options: {
@@ -15,31 +14,6 @@ const { values: args } = util.parseArgs({
 	strict: true,
 })
 const { minify } = args
-
-const htmlPlugin = (): BunPlugin => {
-	return {
-		name: `html-plugin`,
-		setup(build) {
-			const minify = async (path: string): Promise<string> => {
-				const html = await Bun.file(path).text()
-				if (build.config.minify) {
-					return htmlMinifierTerser.minify(html, htmlMinifierOptions)
-				}
-
-				return html
-			}
-
-			build.onLoad({ filter: /\.html$/u }, async (args) => {
-				const html = await minify(args.path)
-
-				return {
-					contents: html,
-					loader: `html`,
-				}
-			})
-		},
-	}
-}
 
 const config: BuildConfig = {
 	entrypoints: [`src/index.html`],
