@@ -1,14 +1,9 @@
-async function main() {
-	for (const el of document.querySelectorAll(`button`)) {
-		el.addEventListener(`click`, playSound)
-	}
+async function main(): Promise<void> {
+	document.querySelector(`button`)?.addEventListener(`click`, playSound)
 }
 
-async function playSound(this: HTMLButtonElement, _evt: MouseEvent): Promise<void> {
-	const src = this.value
-	const audio = new Audio(src)
-
-	audio.play()
+async function playSound(): Promise<void> {
+	document.querySelector(`audio`)?.play()
 }
 
 try {

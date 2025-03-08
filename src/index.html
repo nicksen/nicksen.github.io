@@ -4,18 +4,18 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<title></title>
+		<title>Wendy's</title>
 
-		<link rel="preload" href="/assets/audio.mp3" as="audio" />
-		<link rel="stylesheet" href="/assets/app.css" />
-		<script type="module" src="/assets/app.js" defer></script>
+		<link rel="stylesheet" href="./css/app.css" />
+		<script type="module" src="./js/app.ts" defer></script>
 	</head>
 
 	<body class="flex h-full flex-row flex-wrap place-content-center">
 		<button
 			type="button"
 			class="aspect-square max-w-[35vw] flex-1 rounded-full bg-red-600 shadow-lg shadow-black/50 focus:outline-none active:bg-red-700"
-			value="/assets/audio.mp3"
 		></button>
+
+		<audio src="./assets/audio.mp3" aria-hidden="true" />
 	</body>
 </html>
