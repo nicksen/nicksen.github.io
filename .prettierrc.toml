@@ -7,6 +7,7 @@ plugins = [
 	"prettier-plugin-pkg",
 	"prettier-plugin-sh",
 	"prettier-plugin-toml",
+	"prettier-plugin-tailwindcss",
 ]
 printWidth = 100
 proseWrap = "always"
@@ -25,6 +26,9 @@ compactInlineTables = false
 indentEntries = false
 indentTables = false
 reorderKeys = true
+
+
+tailwindStylesheet = "./src/css/app.css"
 
 
 [[overrides]]
