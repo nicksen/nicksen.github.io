@@ -43,6 +43,11 @@ depends = ["deps:node"]
 description = "check prettier formatting"
 run = "bun x --bun prettier --check ."
 
+[tasks."lint:tsc"]
+depends = ["deps:node"]
+description = "check typescript"
+run = "bun x --bun tsc --noEmit"
+
 [tasks."lint:actions"]
 description = "check github actions"
 run = "actionlint"
