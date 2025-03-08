@@ -6,6 +6,7 @@
       "devDependencies": {
         "@tailwindcss/cli": "^4.0.12",
         "@types/bun": "^1.2.4",
+        "better-typescript-lib": "^2.10.1",
         "cpy-cli": "^5.0.0",
         "html-minifier-terser": "^7.2.0",
         "prettier": "^3.5.3",
@@ -107,6 +108,40 @@
 
     "@types/ws": ["@types/ws@8.5.14", "", { "dependencies": { "@types/node": "*" } }, "sha512-bd/YFLW+URhBzMXurx7lWByOu+xzU9+kb3RboOteXYDfW+tr+JZa99OyNmPINEGB/ahzKrEuc8rcv4gnpJmxTw=="],
 
+    "@typescript/lib-decorators": ["@better-typescript-lib/decorators@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-Vam/FqvpJsOKnaQ3hLwizoNjxcSg1T4nDagbO5w6XbaKw1WAicF+oGbA9aoqGhsRcwd69EGs0cNflCb26dkDcw=="],
+
+    "@typescript/lib-dom": ["@better-typescript-lib/dom@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-VrRAdhXC+S9MCglTOnuQi/kx8UQZ94DlaBhvx8eVlSE37HUaQobmdGCoxrVfzUyHkyM++X3WCPxk2gZShyyaCQ=="],
+
+    "@typescript/lib-es2015": ["@better-typescript-lib/es2015@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-A24JzCuRwE06C7buwsWfNawba6YFPYw/cw6axci0q/iiG9Bhc95LuXL7ArUtjoF0YcWmTibH2oOEAXSWIuvC+A=="],
+
+    "@typescript/lib-es2016": ["@better-typescript-lib/es2016@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-gNfKn/K4IqI2vP5T8C037SD5SoQfe/qGHDGwubGpbEo8rMyQgi8GSSGodSt43MGFIssLTKBZGJErKMgHeEeU0w=="],
+
+    "@typescript/lib-es2017": ["@better-typescript-lib/es2017@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-qXVDGcbv7gyZslFqY2ZmbUTajurfDtvq8nRh0FTsPtLe9Pe4VO5PAce7Py4q5lSzQxsA47Q6vWD+8upUcAjVWw=="],
+
+    "@typescript/lib-es2018": ["@better-typescript-lib/es2018@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-KiOPcIj75ORHXZZF4YAFrtMFOY+9LndPoIdiYzWr0xAiSwGtzi0oE7G5Dwz3WJBWtrAvtRoMtZHphvH6i9cBMg=="],
+
+    "@typescript/lib-es2019": ["@better-typescript-lib/es2019@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-fL17tVeM9rxF3viZxMtF2bcoMundsk19ZLZrZORcHGg5GBQG+wWK1TGwdpedPSlUKs7iGJaSpM65gr+d1+uXEg=="],
+
+    "@typescript/lib-es2020": ["@better-typescript-lib/es2020@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-nvGZdY6paNJSqlUZFHr9a1eVWUopWsRk3fyd7XU3GCaH2vxXtnWzw4+aVzzdPiNz/7yu+6FqnO8wPpVQtfcbpw=="],
+
+    "@typescript/lib-es2021": ["@better-typescript-lib/es2021@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-y5ZkQfbQlzVIQhn7O91Pt4h60YgwIJM6oUUcBPDktaWc/lVUa+uxsh3Ep8A6nN+nwcVhO2xHguZPtlHy9cdgNA=="],
+
+    "@typescript/lib-es2022": ["@better-typescript-lib/es2022@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-EhmU3RXGuJmBJQrsQSKhKanQQSmQoxTk6cgLHZsB2Q5UslQIjmjhQ3CyjP+1Hgs0a+7C2biEHw2dJOBtYNO/Ow=="],
+
+    "@typescript/lib-es2023": ["@better-typescript-lib/es2023@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-Lc1/0ZnXrU0L4WwGlaZM+iVrRyZrXymlO8s3EUOYYeShq3/sCf1EIohVglUI56RGajtH3n0qKuQl2tV+yRjclQ=="],
+
+    "@typescript/lib-es2024": ["@better-typescript-lib/es2024@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-00Zn07Nnadtpswm/NeP102HbyGMI92eEqP8+RfvZMndZMxVRcSCKGn5HPA/up8WHBCG8BO3ryyrISmdDsCtRjw=="],
+
+    "@typescript/lib-es5": ["@better-typescript-lib/es5@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-OfB5I0Zi+42aA7gYv6ozlPJlHoNrsbhxMNYSWkSLbVT6r1gTURlGOkpoAkNCUWMTGkcVaIsnMSKC4tFU7EER7Q=="],
+
+    "@typescript/lib-es6": ["@better-typescript-lib/es6@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-V6UI8+pbk4ltZIh2Xy/uVEYdgL/uS3ZJ6cG1PQ4Jkv6c0aEQK46dUV5mDUjWqtqgHaOBMGSN7G6lN2p2fg1dSw=="],
+
+    "@typescript/lib-esnext": ["@better-typescript-lib/esnext@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-qMVyb830e+UbN4DSSmjcSr8FyZWa4+DTBpKv1QtnPP1I98r+d/QTDrburuBUV/wrnUh7YNBVGVjV2YgTqqCq4w=="],
+
+    "@typescript/lib-scripthost": ["@better-typescript-lib/scripthost@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-RFp5JsEEDFwscB5PF7fU12O93kLh3QstzzWvHxbg6mM/D5jBYqExnEsJ3D1/d+7fluN6T1kGfxnFw9IcKNkIDQ=="],
+
+    "@typescript/lib-webworker": ["@better-typescript-lib/webworker@2.10.1", "", { "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-1UQe246+d14TOiEKa+V3Aq8U+0HO2foiBrPeoXJxblh2gIN631kdZLFcxn2zgisamocE3kv71VyqL0HhJfodeA=="],
+
     "acorn": ["acorn@8.14.1", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg=="],
 
     "aggregate-error": ["aggregate-error@4.0.1", "", { "dependencies": { "clean-stack": "^4.0.0", "indent-string": "^5.0.0" } }, "sha512-0poP0T7el6Vq3rstR8Mn4V/IQrpBLO6POkUSrN7RhyY+GF/InCFShQzsQ39T25gkHhLgSLByyAz+Kjb+c2L98w=="],
@@ -118,6 +153,8 @@
     "arrify": ["arrify@3.0.0", "", {}, "sha512-tLkvA81vQG/XqE2mjDkGQHoOINtMHtysSnemrmoGe6PydDPMRbVugqyk4A6V/WDWEfm3l+0d8anA9r8cv/5Jaw=="],
 
     "balanced-match": ["balanced-match@1.0.2", "", {}, "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="],
+
+    "better-typescript-lib": ["better-typescript-lib@2.10.1", "", { "dependencies": { "@typescript/lib-decorators": "npm:@better-typescript-lib/decorators@2.10.1", "@typescript/lib-dom": "npm:@better-typescript-lib/dom@2.10.1", "@typescript/lib-es2015": "npm:@better-typescript-lib/es2015@2.10.1", "@typescript/lib-es2016": "npm:@better-typescript-lib/es2016@2.10.1", "@typescript/lib-es2017": "npm:@better-typescript-lib/es2017@2.10.1", "@typescript/lib-es2018": "npm:@better-typescript-lib/es2018@2.10.1", "@typescript/lib-es2019": "npm:@better-typescript-lib/es2019@2.10.1", "@typescript/lib-es2020": "npm:@better-typescript-lib/es2020@2.10.1", "@typescript/lib-es2021": "npm:@better-typescript-lib/es2021@2.10.1", "@typescript/lib-es2022": "npm:@better-typescript-lib/es2022@2.10.1", "@typescript/lib-es2023": "npm:@better-typescript-lib/es2023@2.10.1", "@typescript/lib-es2024": "npm:@better-typescript-lib/es2024@2.10.1", "@typescript/lib-es5": "npm:@better-typescript-lib/es5@2.10.1", "@typescript/lib-es6": "npm:@better-typescript-lib/es6@2.10.1", "@typescript/lib-esnext": "npm:@better-typescript-lib/esnext@2.10.1", "@typescript/lib-scripthost": "npm:@better-typescript-lib/scripthost@2.10.1", "@typescript/lib-webworker": "npm:@better-typescript-lib/webworker@2.10.1" }, "peerDependencies": { "typescript": ">=4.5.2" } }, "sha512-LptelM5mmDgQe79fwflOt6cPmYZvnlLX6xmlMuI2H6a/Q5Og8CmOz9x1wdOqAmDOFcLKnxyZLnZcssxtvjC+WQ=="],
 
     "brace-expansion": ["brace-expansion@2.0.1", "", { "dependencies": { "balanced-match": "^1.0.0" } }, "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA=="],
 

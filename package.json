@@ -5,6 +5,7 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.12",
     "@types/bun": "^1.2.4",
+    "better-typescript-lib": "^2.10.1",
     "cpy-cli": "^5.0.0",
     "html-minifier-terser": "^7.2.0",
     "prettier": "^3.5.3",
