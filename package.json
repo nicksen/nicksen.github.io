@@ -23,9 +23,16 @@
     "typescript": "^5.8.2"
   },
   "browserslist": {
-    "production": "defaults",
-    "development": "defaults and last 1 version",
-    "modern_css": "defaults and fully supports css-variables and fully supports css-cascade-layers",
-    "modern_js": "defaults and fully supports es6-module"
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 edge version"
+    ]
   }
 }

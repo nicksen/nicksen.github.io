@@ -26,7 +26,7 @@ const config: BuildConfig = {
 			postcssPlugins: {
 				append: [
 					postcssPresetEnv({
-						env: `modern_css`,
+						browsers: `browserslist config and fully supports css-variables and fully supports css-cascade-layers`,
 					}),
 				],
 			},
