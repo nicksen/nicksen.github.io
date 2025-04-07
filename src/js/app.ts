@@ -3,7 +3,10 @@ async function main(): Promise<void> {
 }
 
 async function playSound(): Promise<void> {
-	document.querySelector(`audio`)?.play()
+	const audio = document.querySelector(`audio`)
+	audio?.pause()
+	audio?.fastSeek(0)
+	audio?.play()
 }
 
 try {
