@@ -34,12 +34,12 @@ description = "lint sources"
 [tasks."lint:prettier"]
 depends = ["deps:node"]
 description = "check prettier formatting"
-run = "bun x --bun prettier --check ."
+run = "bun x prettier --check ."
 
 [tasks."lint:tsc"]
 depends = ["deps:node"]
 description = "check typescript"
-run = "bun x --bun tsc --noEmit"
+run = "bun x tsc --noEmit"
 
 [tasks."lint:actions"]
 description = "check github actions"
@@ -53,7 +53,7 @@ description = "apply automatic fixes"
 [tasks."fmt:prettier"]
 depends = ["deps:node"]
 description = "fix prettier formatting"
-run = "bun x --bun prettier --write ."
+run = "bun x prettier --write ."
 
 
 [tasks."deps"]
@@ -90,4 +90,4 @@ sources = ["./package.json", "./bun.lockb"]
 [tasks."clean"]
 depends = ["deps:node"]
 description = "clean bundled site"
-run = "bun x --bun rimraf _site/"
+run = "bun x rimraf _site/"

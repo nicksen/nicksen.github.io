@@ -1,5 +1,6 @@
 #:schema https://json.schemastore.org/prettierrc
 
+experimentalOperatorPosition = "start"
 experimentalTernaries = false
 htmlWhitespaceSensitivity = "ignore"
 plugins = [
