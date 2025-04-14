@@ -16,6 +16,14 @@ semi = false
 useTabs = true
 
 
+binaryNextLine = true
+functionNextLine = false
+keepComments = true
+minify = false
+spaceRedirects = true
+switchCaseIndent = false
+
+
 alignComments = true
 alignEntries = false
 allowedBlankLines = 2

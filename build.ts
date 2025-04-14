@@ -15,11 +15,18 @@ const { values: args } = util.parseArgs({
 })
 const { minify } = args
 
+const naming = {
+	entry: `[name].[ext]`,
+	chunk: minify ? `[name]-[hash].[ext]` : `[name].[ext]`,
+	asset: minify ? `[name]-[hash].[ext]` : `[name].[ext]`,
+}
+
 const config: BuildConfig = {
 	entrypoints: [`src/index.html`],
 	outdir: `_site`,
 	splitting: true,
 	minify,
+	naming,
 	publicPath: `/`,
 	plugins: [
 		tailwindPlugin({

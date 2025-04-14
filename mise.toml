@@ -1,7 +1,6 @@
 [tools]
 actionlint = "1.7"
 bun = "1.2"
-shellcheck = "0.10"
 
 
 [tasks."default"]
@@ -34,7 +33,7 @@ description = "lint sources"
 [tasks."lint:prettier"]
 depends = ["deps:node"]
 description = "check prettier formatting"
-run = "bun x prettier --check ."
+run = "bun x prettier -u -c ."
 
 [tasks."lint:tsc"]
 depends = ["deps:node"]
@@ -53,7 +52,7 @@ description = "apply automatic fixes"
 [tasks."fmt:prettier"]
 depends = ["deps:node"]
 description = "fix prettier formatting"
-run = "bun x prettier --write ."
+run = "bun x prettier -u -w ."
 
 
 [tasks."deps"]
@@ -62,9 +61,9 @@ description = "fetch project dependencies"
 
 [tasks."deps:node"]
 description = "fetch node dependencies"
-outputs = ["./node_modules/sentinel"]
-run = ["bun install", "touch ./node_modules/sentinel"]
-sources = ["./package.json", "./bun.lockb"]
+outputs.auto = true
+run = "bun install"
+sources = ["./package.json", "./bun.lock"]
 
 
 [tasks."deps-up"]
@@ -73,7 +72,7 @@ description = "update project dependencies"
 
 [tasks."deps-up:node"]
 description = "update node dependencies"
-run = ["bun update --latest", "bun install", "touch ./node_modules/sentinel"]
+run = ["bun update --latest", "bun install"]
 
 
 [tasks."ci:deps"]
@@ -82,9 +81,9 @@ description = "fetch project dependencies in ci"
 
 [tasks."ci:deps:node"]
 description = "fetch node dependencies in ci"
-outputs = ["./node_modules/sentinel"]
-run = ["bun install --frozen-lockfile", "touch ./node_modules/sentinel"]
-sources = ["./package.json", "./bun.lockb"]
+outputs.auto = true
+run = "bun install --frozen-lockfile"
+sources = ["./package.json", "./bun.lock"]
 
 
 [tasks."clean"]
