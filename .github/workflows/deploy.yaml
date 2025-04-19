@@ -5,7 +5,7 @@ name: deploy to github pages
 on:
   push:
     branches:
-    - main
+      - main
   workflow_dispatch:
 
 permissions:
@@ -22,45 +22,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout repository
-      uses: actions/checkout@v4
+      - name: checkout repository
+        uses: actions/checkout@v4
 
-    - name: setup build tools
-      uses: jdx/mise-action@v2
-      with:
-        experimental: true
+      - name: setup build tools
+        uses: jdx/mise-action@v2
+        with:
+          experimental: true
 
-    - name: detect data
-      id: data
-      run: |
-        echo "bun-cache=$(bun pm cache)" >> "$GITHUB_OUTPUT"
+      - name: detect data
+        id: data
+        run: |
+          echo "bun-cache=$(bun pm cache)" >> "$GITHUB_OUTPUT"
 
-    - name: cache project dependencies
-      uses: actions/cache@v4
-      env:
-        cache-name: bun-cache
-      with:
-        path: ${{ steps.data.outputs.bun-cache }}
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/bun.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
+      - name: cache project dependencies
+        uses: actions/cache@v4
+        env:
+          cache-name: bun-cache
+        with:
+          path: ${{ steps.data.outputs.bun-cache }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
 
-    - name: install dependencies
-      run: mise run ci:deps
+      - name: install dependencies
+        run: mise run ci:deps
 
-    - name: lint sources
-      run: mise run lint
+      - name: lint sources
+        run: mise run lint
 
-    - name: build project
-      env:
-        NODE_ENV: production
-      run: mise run deploy
+      - name: build project
+        env:
+          NODE_ENV: production
+        run: mise run deploy
 
-    - name: upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./_site
+      - name: upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
 
   deploy:
     environment:
@@ -71,6 +71,6 @@ jobs:
     needs: build
 
     steps:
-    - name: deploy to github pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@v4

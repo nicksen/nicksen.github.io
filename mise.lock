@@ -6,8 +6,8 @@ backend = "aqua:rhysd/actionlint"
 "actionlint_1.7.7_linux_amd64.tar.gz" = "sha256:023070a287cd8cccd71515fedc843f1985bf96c436b7effaecce67290e7e0757"
 
 [tools.bun]
-version = "1.2.9"
+version = "1.2.10"
 backend = "core:bun"
 
 [tools.bun.checksums]
-"bun-linux-x64-baseline.zip" = "sha256:f8f969281625dcde1abed7b405f0525909641674dcd0ea4060421747de30f6db"
+"bun-linux-x64-baseline.zip" = "sha256:4b62f599048ef320a761bacbeeb71f8784f5e373b976a9d53b3ee7811f19b004"

@@ -66,11 +66,11 @@ run = "bun install"
 sources = ["./package.json", "./bun.lock"]
 
 
-[tasks."deps-up"]
-depends = ["deps-up:*"]
+[tasks."up:deps"]
+depends = ["up:deps:*"]
 description = "update project dependencies"
 
-[tasks."deps-up:node"]
+[tasks."up:deps:node"]
 description = "update node dependencies"
 run = ["bun update --latest", "bun install"]
 
