@@ -1,13 +1,24 @@
-async function main(): Promise<void> {
-	document.querySelector(`button`)?.addEventListener(`click`, playSound)
+const root: ParentNode = document
+
+interface QuerySelector {
+	<K extends keyof HTMLElementTagNameMap>(
+		selectors: K,
+		container?: ParentNode,
+	): HTMLElementTagNameMap[K] | undefined
+	<E extends HTMLElement = HTMLElement>(selectors: string, container?: ParentNode): E | undefined
 }
 
-async function playSound(): Promise<void> {
-	const audio = document.querySelector(`audio`)
+const q: QuerySelector = (selectors: string, container: ParentNode = root) =>
+	container.querySelector(selectors) ?? undefined
+
+const playSound = async (): Promise<void> => {
+	const audio = q(`audio`)
 	audio?.pause()
 	audio?.fastSeek(0)
 	audio?.play()
 }
+
+const main = async (): Promise<void> => q(`button`)?.addEventListener(`click`, playSound)
 
 try {
 	await main()
