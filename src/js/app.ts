@@ -12,11 +12,11 @@ const q: QuerySelector = (selectors: string, container: ParentNode = root) =>
 	container.querySelector(selectors) ?? undefined
 
 const playSound = async (): Promise<void> => {
-  const audio = q(`audio`)
+	const audio = q(`audio`)
 	if (audio) {
-  	audio.pause()
-  	audio.currentTime = 0
-    audio.play()
+		audio.pause()
+		audio.currentTime = 0
+		audio.play()
 	}
 }
 
