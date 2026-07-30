@@ -12,10 +12,12 @@ const q: QuerySelector = (selectors: string, container: ParentNode = root) =>
 	container.querySelector(selectors) ?? undefined
 
 const playSound = async (): Promise<void> => {
-	const audio = q(`audio`)
-	audio?.pause()
-	audio?.fastSeek(0)
-	audio?.play()
+  const audio = q(`audio`)
+	if (audio) {
+  	audio.pause()
+  	audio.currentTime = 0
+    audio.play()
+	}
 }
 
 const main = async (): Promise<void> => q(`button`)?.addEventListener(`click`, playSound)
