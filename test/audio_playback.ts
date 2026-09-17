@@ -1,12 +1,16 @@
 /*
   Smoke test for the built site: clicking the button plays the clip, and the page raises nothing.
 
-  Every Chromium-family browser found on the machine is tested, on any platform, over the DevTools
-  protocol. Firefox and Safari speak WebDriver BiDi instead, which would mean a driver dependency.
+  Whatever browsers the machine has are tested, on any platform: candidates are found by name
+  across PATH and the platform's application directories, then each one is confirmed to be
+  Chromium-family by its own --version output. Nothing is hard-coded to a particular install.
+
+  Firefox and Safari are not driven: they speak WebDriver BiDi rather than the DevTools protocol
+  used here, which would mean taking on a driver dependency.
 */
 
 import { existsSync } from "node:fs"
-import { mkdtemp, rm } from "node:fs/promises"
+import { mkdtemp, readdir, realpath, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 
@@ -17,60 +21,88 @@ interface Browser {
 	path: string
 }
 
-/* Chromium-family browsers, by platform. Any of them speaks the DevTools protocol used below. */
-const candidates = (): Browser[] => {
+// browser executables are named after their browser on every platform
+const BROWSERISH = /(chrome|chromium|edge|brave|vivaldi|opera|arc|thorium|yandex)/iu
+// ...and identify themselves in --version, which is how a candidate is confirmed
+const CHROMIUM = /\b(Chrome|Chromium|Edge|Brave|Vivaldi|Opera)\b/u
+
+/* Everywhere a browser executable might sit, by platform. */
+const searchPaths = (): string[] => {
 	const {
+		HOME = ``,
 		LOCALAPPDATA = ``,
 		PROGRAMFILES = ``,
-		"PROGRAMFILES(X86)": PROGRAMFILESX86 = ``,
+		"PROGRAMFILES(X86)": X86 = ``,
 	} = process.env
-	const byPlatform: Record<string, Browser[]> = {
-		darwin: [
-			{ name: `chrome`, path: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` },
-			{ name: `edge`, path: `/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge` },
-			{ name: `brave`, path: `/Applications/Brave Browser.app/Contents/MacOS/Brave Browser` },
-			{ name: `chromium`, path: `/Applications/Chromium.app/Contents/MacOS/Chromium` },
-			{ name: `vivaldi`, path: `/Applications/Vivaldi.app/Contents/MacOS/Vivaldi` },
-		],
-		win32: [
-			{ name: `chrome`, path: `${PROGRAMFILES}\\Google\\Chrome\\Application\\chrome.exe` },
-			{ name: `chrome`, path: `${PROGRAMFILESX86}\\Google\\Chrome\\Application\\chrome.exe` },
-			{ name: `chrome`, path: `${LOCALAPPDATA}\\Google\\Chrome\\Application\\chrome.exe` },
-			{ name: `edge`, path: `${PROGRAMFILES}\\Microsoft\\Edge\\Application\\msedge.exe` },
-			{ name: `edge`, path: `${PROGRAMFILESX86}\\Microsoft\\Edge\\Application\\msedge.exe` },
-		],
+	const path = process.env[`PATH`] ?? ``
+	const separator = process.platform === `win32` ? `;` : `:`
+	const dirs = path.split(separator).filter(Boolean)
+
+	if (process.platform === `darwin`) {
+		return [...dirs, `/Applications`, join(HOME, `Applications`)]
+	}
+	if (process.platform === `win32`) {
+		return [...dirs, PROGRAMFILES, X86, join(LOCALAPPDATA, `Programs`)].filter(Boolean)
 	}
 
-	// on linux, and as a fallback anywhere, the binaries live on PATH
-	const onPath = [
-		`google-chrome`,
-		`google-chrome-stable`,
-		`chromium`,
-		`chromium-browser`,
-		`microsoft-edge`,
-		`brave-browser`,
-	].map((name) => ({ name, path: name }))
-
-	return [...(byPlatform[process.platform] ?? []), ...onPath]
+	return [...dirs, `/opt`, `/usr/lib`, `/snap/bin`]
 }
 
-const discover = (): Browser[] => {
+/* Candidate executables with a browser-ish name. Names are filtered before anything is run, so
+   unrelated applications are never launched just to see what they are. */
+const scan = async (): Promise<string[]> => {
+	const found: string[] = []
+	for (const dir of new Set(searchPaths())) {
+		let entries: string[]
+		try {
+			entries = await readdir(dir)
+		} catch {
+			continue // unreadable or missing, nothing to do
+		}
+
+		for (const entry of entries.filter((e) => BROWSERISH.test(e))) {
+			// a macos or windows browser is a bundle or directory, with the executable inside
+			const candidates =
+				process.platform === `darwin`
+					? [join(dir, entry, `Contents/MacOS`, entry.replace(/\.app$/u, ``)), join(dir, entry)]
+					: [
+							join(dir, entry),
+							join(dir, entry, `${entry}.exe`),
+							join(dir, entry, `Application`, `${entry}.exe`),
+						]
+			found.push(...candidates.filter((c) => existsSync(c)))
+		}
+	}
+
+	return found
+}
+
+/* Confirms a candidate really is a chromium-family browser by asking it. */
+const identify = async (path: string): Promise<Browser | undefined> => {
+	try {
+		const proc = Bun.spawn([path, `--version`], { stdout: `pipe`, stderr: `ignore` })
+		const output = await new Response(proc.stdout).text()
+		await proc.exited
+		return CHROMIUM.test(output) ? { name: output.trim() || path, path } : undefined
+	} catch {
+		return undefined
+	}
+}
+
+const discover = async (): Promise<Browser[]> => {
 	const override =
 		process.argv.find((a) => a.startsWith(`--browser=`))?.slice(10) ?? process.env[`BROWSER_PATH`]
 	if (override) return [{ name: override, path: override }]
 
-	const found = new Map<string, Browser>()
-	for (const browser of candidates()) {
-		const absolute = browser.path.includes(`/`) || browser.path.includes(`\\`)
-		const resolved = absolute
-			? existsSync(browser.path)
-				? browser.path
-				: undefined
-			: (Bun.which(browser.path) ?? undefined)
-		if (resolved && !found.has(resolved)) found.set(resolved, { ...browser, path: resolved })
+	const byPath = new Map<string, Browser>()
+	for (const candidate of await scan()) {
+		const real = await realpath(candidate).catch(() => candidate)
+		if (byPath.has(real)) continue
+		const browser = await identify(real)
+		if (browser) byPath.set(real, browser)
 	}
 
-	return [...found.values()]
+	return [...byPath.values()]
 }
 
 const serve = (dir: string) =>
@@ -204,10 +236,16 @@ if (!existsSync(join(site, `index.html`))) {
 	process.exit(1)
 }
 
-const browsers = discover()
+const browsers = await discover()
 if (browsers.length === 0) {
 	console.error(`no chromium-family browser found - set BROWSER_PATH to one`)
 	process.exit(1)
+}
+
+// `--list` answers "what did it actually find?", which is the first question when ci disagrees
+if (process.argv.includes(`--list`)) {
+	for (const browser of browsers) console.log(`${browser.name}\n  ${browser.path}`)
+	process.exit(0)
 }
 
 let failures = 0
