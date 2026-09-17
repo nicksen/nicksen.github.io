@@ -16,7 +16,7 @@ const playSound = async (): Promise<void> => {
 	if (audio) {
 		audio.pause()
 		audio.currentTime = 0
-		audio.play()
+		await audio.play().catch(() => {})
 	}
 }
 
