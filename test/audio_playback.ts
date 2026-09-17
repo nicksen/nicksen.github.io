@@ -135,7 +135,7 @@ const launch = async (browser: Browser, profile: string) => {
 			`--autoplay-policy=no-user-gesture-required`,
 			`--window-size=1000,800`,
 		],
-		{ stdout: `ignore`, stderr: `ignore` },
+		{ stdout: `ignore`, stderr: `pipe` },
 	)
 
 	// the chosen port is written to the profile once the browser is listening. the handle is
@@ -149,8 +149,13 @@ const launch = async (browser: Browser, profile: string) => {
 		}
 	}
 
+	// say why, rather than just that it did not work
 	proc.kill()
-	throw new Error(`${browser.name} did not expose a debugging port`)
+	const stderr = (await new Response(proc.stderr).text()).trim().split(`\n`).slice(-6).join(`\n`)
+	throw new Error(
+		`${browser.name} did not expose a debugging port (exit ${proc.exitCode})`
+			+ (stderr && `\n${stderr}`),
+	)
 }
 
 /* Minimal CDP client: enough to open a tab, click in it and collect what the page threw. */
