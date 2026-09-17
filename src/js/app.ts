@@ -20,10 +20,10 @@ const playSound = async (): Promise<void> => {
 	}
 }
 
-const main = async (): Promise<void> => q(`button`)?.addEventListener(`click`, playSound)
+const main = (): void => q(`button`)?.addEventListener(`click`, playSound)
 
 try {
-	await main()
+	main()
 } catch (err) {
 	console.error(err)
 }
