@@ -25,6 +25,9 @@ interface Browser {
 const BROWSERISH = /(chrome|chromium|edge|brave|vivaldi|opera|arc|thorium|yandex)/iu
 // ...and identify themselves in --version, which is how a candidate is confirmed
 const CHROMIUM = /\b(Chrome|Chromium|Edge|Brave|Vivaldi|Opera)\b/u
+// webdriver binaries live beside the browsers and answer --version almost identically
+// ("Microsoft Edge WebDriver 152.0"), but they drive a browser rather than being one
+const DRIVER = /driver/iu
 
 /* Everywhere a browser executable might sit, by platform. */
 const searchPaths = (): string[] => {
@@ -60,7 +63,7 @@ const scan = async (): Promise<string[]> => {
 			continue // unreadable or missing, nothing to do
 		}
 
-		for (const entry of entries.filter((e) => BROWSERISH.test(e))) {
+		for (const entry of entries.filter((e) => BROWSERISH.test(e) && !DRIVER.test(e))) {
 			// a macos or windows browser is a bundle or directory, with the executable inside
 			const candidates =
 				process.platform === `darwin`
@@ -83,7 +86,10 @@ const identify = async (path: string): Promise<Browser | undefined> => {
 		const proc = Bun.spawn([path, `--version`], { stdout: `pipe`, stderr: `ignore` })
 		const output = await new Response(proc.stdout).text()
 		await proc.exited
-		return CHROMIUM.test(output) ? { name: output.trim() || path, path } : undefined
+		const version = output.trim()
+		return CHROMIUM.test(version) && !DRIVER.test(version)
+			? { name: version || path, path }
+			: undefined
 	} catch {
 		return undefined
 	}
@@ -259,7 +265,15 @@ const server = serve(site)
 try {
 	for (const [i, browser] of browsers.entries()) {
 		console.log(`\n${browser.name} (${browser.path})`)
-		const { proc, port } = await launch(browser, join(workdir, `profile-${i}`))
+		let launched
+		try {
+			launched = await launch(browser, join(workdir, `profile-${i}`))
+		} catch (err) {
+			check(false, `launches and exposes a debugging port`, String(err))
+			continue
+		}
+
+		const { proc, port } = launched
 		try {
 			const result = await visit(port, `http://127.0.0.1:${server.port}/`)
 			check(result.label === `ma'am, this is a wendys`, `the button has its label`, result.label)
