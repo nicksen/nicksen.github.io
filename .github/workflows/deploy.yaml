@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - name: checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: setup build tools
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v4
         with:
           experimental: true
 
@@ -36,7 +36,7 @@ jobs:
           echo "bun-cache=$(bun pm cache)" >> "$GITHUB_OUTPUT"
 
       - name: cache project dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         env:
           cache-name: bun-cache
         with:
@@ -61,7 +61,7 @@ jobs:
         run: bun run test/audio_playback.ts
 
       - name: upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./_site
 
@@ -76,4 +76,4 @@ jobs:
     steps:
       - name: deploy to github pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
