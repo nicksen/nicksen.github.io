@@ -15,7 +15,7 @@ run = "bun --watch src/index.html"
 
 
 [tasks."deploy"]
-depends = ["build --minify"]
+depends = ["clean", "build --minify"]
 description = "build project for production"
 
 
