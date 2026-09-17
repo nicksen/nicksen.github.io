@@ -5,14 +5,27 @@
 
 	/*
 	  Nord, trimmed to the neutrals this page actually uses.
-	  The full sixteen-colour palette is at https://www.nordtheme.com/docs/colors-and-palettes
+	  The full sixteen-colour palette lives at https://www.nordtheme.com/docs/colors-and-palettes
 	*/
 
-	/* Base component colour of "Polar Night". Used here for text. */
+	/* Base component colour of "Polar Night". Page text on light, page ground on dark. */
 	--color-nord-0: oklch(0.3244 0.0229 264.18);
 
-	/* Lighter shade of "Snow Storm". Used here for the page ground. */
+	/* Lighter shade of "Snow Storm". Page ground on light, page text on dark. */
 	--color-nord-6: oklch(0.9513 0.0074 260.73);
+
+	/* Bluish core accent. Reserved for the focus ring, where it has to survive on red. */
+	--color-nord-8: oklch(0.7746 0.0622 217.47);
+
+	/*
+	  The button is a big arcade "destroy" button: a glossy red dome sitting in a black
+	  collar, ringed by a brushed metal bezel, riding on a wall that compresses when pressed.
+	*/
+	--color-cap-lit: oklch(0.7 0.16 33);
+	--color-cap: oklch(0.62 0.2 32);
+	--color-cap-edge: oklch(0.52 0.19 30);
+	--color-collar: oklch(0.16 0 0);
+	--color-well: oklch(0.1 0 0);
 }
 
 @layer base {
@@ -21,22 +34,86 @@
 	}
 
 	body {
-		@apply flex h-full flex-row flex-wrap place-content-center bg-nord-6 text-nord-0;
+		@apply grid h-full place-content-center bg-nord-6 text-nord-0;
+
+		@variant dark {
+			@apply bg-nord-0 text-nord-6;
+		}
 	}
 
 	button {
-		@apply aspect-square max-w-[35vw] flex-1 rounded-full bg-red-600 shadow-lg shadow-black/50;
+		/* the element itself is the metal bezel; the cap is the child that travels */
+		@apply relative aspect-square w-[clamp(13rem,58vw,22rem)] rounded-full;
+
+		background: conic-gradient(
+			from 200deg,
+			oklch(0.51 0 0),
+			oklch(0.89 0 0) 18%,
+			oklch(0.63 0 0) 38%,
+			oklch(0.95 0 0) 52%,
+			oklch(0.56 0 0) 70%,
+			oklch(0.84 0 0) 86%,
+			oklch(0.51 0 0)
+		);
+		box-shadow:
+			0 0.9rem 1.6rem rgb(0 0 0 / 32%),
+			inset 0 0 0 0.1rem rgb(0 0 0 / 30%);
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 1.9rem;
+			border-radius: 50%;
+			background:
+				radial-gradient(circle at 50% 20%, rgb(255 255 255 / 34%), transparent 56%),
+				radial-gradient(
+					circle at 50% 42%,
+					var(--color-cap-lit),
+					var(--color-cap) 66%,
+					var(--color-cap-edge) 100%
+				);
+			/* collar, then the wall whose height is the travel, then the contact shadow, then the dome */
+			box-shadow:
+				0 0 0 0.45rem var(--color-collar),
+				0 0.7rem 0 var(--color-well),
+				0 1rem 1.2rem rgb(0 0 0 / 40%),
+				inset 0 0.5rem 1rem rgb(255 255 255 / 16%),
+				inset 0 -0.7rem 1.4rem rgb(0 0 0 / 26%);
+			transition:
+				transform 90ms ease-out,
+				box-shadow 90ms ease-out;
+		}
 
 		@variant hover {
 			@apply cursor-pointer;
+
+			&::after {
+				filter: brightness(1.05);
+			}
 		}
 
-		@variant focus {
-			@apply outline-none;
+		@variant focus-visible {
+			outline: 3px solid var(--color-nord-8);
+			outline-offset: 0.6rem;
 		}
 
+		/* the cap drops onto its wall; the bezel around it does not move */
 		@variant active {
-			@apply bg-red-700;
+			&::after {
+				transform: translateY(0.6rem);
+				box-shadow:
+					0 0 0 0.45rem var(--color-collar),
+					0 0.1rem 0 var(--color-well),
+					0 0.2rem 0.4rem rgb(0 0 0 / 40%),
+					inset 0 0.3rem 0.8rem rgb(255 255 255 / 10%),
+					inset 0 -0.4rem 1.2rem rgb(0 0 0 / 34%);
+			}
+		}
+
+		@variant motion-reduce {
+			&::after {
+				transition: none;
+			}
 		}
 	}
 }
