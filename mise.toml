@@ -26,6 +26,12 @@ run = "bun run build.ts"
 wait_for = ["clean"]
 
 
+[tasks."test"]
+depends = ["build"]
+description = "run browser smoke tests"
+run = "bun run test/audio_playback.ts"
+
+
 [tasks."lint"]
 depends = ["lint:*"]
 description = "lint sources"

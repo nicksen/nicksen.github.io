@@ -22,6 +22,7 @@ Run `mise tasks ls` for the full list.
 | `mise run dev`     | serve the site on a watching dev server      |
 | `mise run build`   | build the site into `_site/`                 |
 | `mise run deploy`  | clean, then build a minified production site |
+| `mise run test`    | run browser smoke tests against the build    |
 | `mise run lint`    | check formatting, types and workflows        |
 | `mise run fmt`     | apply formatting fixes                       |
 | `mise run clean`   | remove `_site/`                              |
