@@ -21,7 +21,9 @@ does. `mise run lint` (prettier, tsc, actionlint) must pass before any commit.
 - **No linter beyond prettier and tsc.** oxlint was evaluated (2026-09) and rejected: it found zero
   findings in its correctness, suspicious and perf categories, and the ~50 findings in its style and
   restriction categories all contradict deliberate choices here (`no-console`, `no-async-await`,
-  `no-optional-chaining`, `sort-imports` fighting `prettier-plugin-organize-imports`).
+  `no-optional-chaining`, `sort-imports` fighting `prettier-plugin-organize-imports`). Worth
+  evaluating again at a later date: the calculus changes if the codebase grows past a few files, or
+  once oxlint's type-aware rules reach parity with what tsc already checks.
 - **The three project names are all load-bearing** and intentionally differ: `groovywendys`
   (package.json), `nicksen.github.io` (repo), `groovy.bitchbot.app` (CNAME). Do not "align" them.
 - **Keep every file in `src/assets/`.** The untrimmed `wendys*.mp3` recordings and the `1.mp3` /
