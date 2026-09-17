@@ -43,9 +43,11 @@ const config: BuildConfig = {
 }
 
 const build = await Bun.build(config)
-if (build.logs.length > 0) {
-	console.warn(`Build succeeded with warnings:`)
+if (!build.success || build.logs.length > 0) {
+	console.error(`Build failed:`)
 	for (const message of build.logs) {
-		console.warn(message)
+		console.error(message)
 	}
+
+	process.exit(1)
 }
