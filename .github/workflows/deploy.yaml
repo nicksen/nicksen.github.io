@@ -57,6 +57,9 @@ jobs:
           NODE_ENV: production
         run: mise run deploy
 
+      - name: test built site
+        run: bun run test/audio_playback.ts
+
       - name: upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
