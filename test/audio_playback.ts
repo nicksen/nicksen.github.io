@@ -138,23 +138,39 @@ const launch = async (browser: Browser, profile: string) => {
 		{ stdout: `ignore`, stderr: `pipe` },
 	)
 
-	// the chosen port is written to the profile once the browser is listening. the handle is
-	// rebuilt each pass because a BunFile caches the stat it took when it was created.
-	for (let i = 0; i < 150; i++) {
-		await Bun.sleep(100)
-		const portFile = Bun.file(join(profile, `DevToolsActivePort`))
-		if (await portFile.exists()) {
-			const port = Number((await portFile.text()).split(`\n`)[0])
-			if (port) return { proc, port }
+	/*
+	  Every chromium-family browser announces its port on stderr once it is listening. The
+	  DevToolsActivePort file in the profile looks like the tidier signal, but edge never writes
+	  one, so the announcement is what all of them agree on.
+
+	  stderr is drained continuously rather than read once: the browser blocks if the pipe fills,
+	  and the tail is worth having to explain a failure.
+	*/
+	let port = 0
+	let log = ``
+	const reader = proc.stderr.getReader()
+	const decoder = new TextDecoder()
+	void (async () => {
+		for (;;) {
+			const { value, done } = await reader.read()
+			if (done) return
+			log = (log + decoder.decode(value, { stream: true })).slice(-4_000)
+			const announced = log.match(/DevTools listening on ws:\/\/[^:\s]+:(\d+)\//u)
+			if (announced && !port) port = Number(announced[1])
 		}
-	}
+	})()
+
+	// a cold browser on a loaded ci runner can take a while to come up
+	const deadline = Date.now() + 60_000
+	while (!port && Date.now() < deadline && proc.exitCode === null) await Bun.sleep(100)
+	if (port) return { proc, port }
 
 	// say why, rather than just that it did not work
 	proc.kill()
-	const stderr = (await new Response(proc.stderr).text()).trim().split(`\n`).slice(-6).join(`\n`)
+	const tail = log.trim().split(`\n`).slice(-6).join(`\n`)
 	throw new Error(
-		`${browser.name} did not expose a debugging port (exit ${proc.exitCode})`
-			+ (stderr && `\n${stderr}`),
+		`${browser.name} never announced a debugging port (exit ${proc.exitCode})`
+			+ (tail && `\n${tail}`),
 	)
 }
 
